@@ -46,7 +46,7 @@ class VideoTransformer(VideoTransformerBase):
                 roi = np.expand_dims(roi, axis=0)
                 prediction = classifier.predict(roi)[0]
                 maxindex = int(np.argmax(prediction))
-                finalout = emotion_dict.get(maxindex)
+                finalout = emotion_dict[maxindex]
                 output = str(finalout)
             label_position = (x, y)
             cv2.putText(img, output, label_position, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
@@ -79,7 +79,7 @@ def main():
     elif choice == "Webcam Face Detection":
         st.header("Webcam Live Feed")
         st.write("Click on start to use webcam and detect your face emotion")
-        webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+        webrtc_streamer(key="example", video_processor_factory=VideoTransformer)
 
     elif choice == "About":
         st.subheader("About this app")
